@@ -3,8 +3,10 @@ package com.mongo.tutorial;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,10 +25,15 @@ public class Controller {
 		return iStudent.findAll();
 	}
 	
-	@PutMapping("/addRecord")
-	public Student addRecord() {
-		Student s = new Student("6819ffcfd74bbba3403d9389", "Tushar");
-		return iStudent.save(s);
+	@PostMapping("/addRecord")
+	public Student addRecord(@RequestBody Student student) {
+		return iStudent.save(student);
+	}
+	
+	@DeleteMapping("/delete")
+	public Student deleteRecord(@RequestBody Student student) {
+		iStudent.delete(student);
+		return student;
 	}
 
 }
